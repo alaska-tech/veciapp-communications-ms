@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  communications-ms:
+    build: .
+    container_name: veciapp-communications-ms
+    restart: always
+    ports:
+      - "${PORT:-3002}:3002"
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+    networks:
+      - delivery-network
+
+networks:
+  delivery-network:
+    driver: bridge
